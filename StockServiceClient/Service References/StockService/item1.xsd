@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/StockServiceContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/StockServiceContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="StockOrder.OrderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Purchase" />
+      <xs:enumeration value="Sale" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="StockOrder.OrderType" nillable="true" type="tns:StockOrder.OrderType" />
+  <xs:complexType name="StockOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Client" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExecutionDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Quantity" type="xs:int" />
+      <xs:element minOccurs="0" name="RequestDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" type="tns:StockOrder.OrderState" />
+      <xs:element minOccurs="0" name="StockValue" type="xs:float" />
+      <xs:element minOccurs="0" name="TotalValue" type="xs:float" />
+      <xs:element minOccurs="0" name="Type" type="tns:StockOrder.OrderType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockOrder" nillable="true" type="tns:StockOrder" />
+  <xs:simpleType name="StockOrder.OrderState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pending" />
+      <xs:enumeration value="Executed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="StockOrder.OrderState" nillable="true" type="tns:StockOrder.OrderState" />
+  <xs:complexType name="ArrayOfStockOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StockOrder" nillable="true" type="tns:StockOrder" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStockOrder" nillable="true" type="tns:ArrayOfStockOrder" />
+</xs:schema>
