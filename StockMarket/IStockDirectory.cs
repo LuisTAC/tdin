@@ -15,9 +15,9 @@ namespace StockServiceContracts
     {
         [OperationContract(IsOneWay = false)]
         [FaultContract(typeof(StockServiceFault))]
-        StockOrder OrderStock(string company, int quantity, StockOrder.OrderType type);
+        StockOrder OrderStock(string company, int quantity, StockOrder.OrderType type, string email);
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract(IsOneWay = false)]
         [FaultContract(typeof(OrderNotFoundFault))]
         void ExecuteOrder(int id, float stockValue);
 

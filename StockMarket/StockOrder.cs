@@ -76,7 +76,5 @@ namespace StockServiceContracts
                 StockValue = this.StockValue
             };
         }
-
-        
     }
 }

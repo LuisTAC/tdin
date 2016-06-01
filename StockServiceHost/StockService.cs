@@ -27,9 +27,31 @@ namespace StockServiceHost
             this.OnNewOrderCallbacks = new HashSet<IStockServiceCallback>();
         }
 
-        public StockServiceContracts.StockOrder OrderStock(string company, int quantity, StockServiceContracts.StockOrder.OrderType type)
+        public StockServiceContracts.StockOrder OrderStock(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email)
         {
-            throw new NotImplementedException();
+            StockOrder toAdd = new StockOrder()
+            {
+                Company = company,
+                Quantity = quantity,
+                Email = email,
+                RequestDate = DateTime.UtcNow.ToString(),
+                Type = this.GetOrderTypeFromEnum(type)
+            };
+
+            try
+            {
+                toAdd = this.database.StockOrders.Add(toAdd);
+                this.database.SaveChanges();
+            } catch(Exception e)
+            {
+                throw new FaultException<StockServiceFault>(new StockServiceFault(e.Message));
+            }
+
+            StockServiceContracts.StockOrder createdOrder = StockService.ToContractStockOrder(toAdd);
+            foreach (IStockServiceCallback callback in this.OnNewOrderCallbacks)
+                callback.OnNewOrder(createdOrder);
+
+            return createdOrder;
         }
 
         public void ExecuteOrder(int id, float stockValue)
@@ -41,10 +63,22 @@ namespace StockServiceHost
             try
             {
                 order.StockValue = stockValue;
+                order.ExecutionDate = DateTime.UtcNow.ToString();
                 this.database.SaveChanges();
             } catch(Exception e)
             {
                 throw new FaultException<StockServiceFault>(new StockServiceFault(e.Message));
+            }
+
+            StockServiceContracts.StockOrder updatedOrder = StockService.ToContractStockOrder(order);
+            if(this.OnOrderStatusChangeCallbacks.ContainsKey(id))
+            {
+                HashSet<IStockServiceCallback> callbacks = this.OnOrderStatusChangeCallbacks[id];
+                if(callbacks != null)
+                {
+                    foreach(IStockServiceCallback callback in callbacks)
+                        callback.OnOrderStatusChange(updatedOrder);
+                }
             }
         }
 
@@ -87,6 +121,37 @@ namespace StockServiceHost
             return callbackId;
         }
 
+        public void UnregisterOnNewOrder(int callbackId)
+        {
+            if(this.CallbacksIds.ContainsKey(callbackId))
+            {
+                IStockServiceCallback callback = this.CallbacksIds[callbackId];
+                if (this.OnNewOrderCallbacks.Contains(callback))
+                    this.OnNewOrderCallbacks.Remove(callback);
+            }
+        }
+
+        public void UnregisterOnOrderStatusChange(int orderId, int callbackId)
+        {
+            if(this.CallbacksIds.ContainsKey(callbackId))
+            {
+                IStockServiceCallback callback = this.CallbacksIds[callbackId];
+                IEnumerable<HashSet<IStockServiceCallback>> statusChangeCallbacks = this.OnOrderStatusChangeCallbacks.Values
+                                                                            .Where(callbacks => callbacks.Contains(callback));
+
+                foreach (HashSet<IStockServiceCallback> callbacks in statusChangeCallbacks)
+                    callbacks.Remove(callback);
+            }
+        }
+
+        private OrderType GetOrderTypeFromEnum(StockServiceContracts.StockOrder.OrderType orderType)
+        {
+            if (orderType == StockServiceContracts.StockOrder.OrderType.Purchase)
+                return this.database.OrderTypes.First(o => o.Name.Equals("Purchase"));
+            else
+                return this.database.OrderTypes.First(o => o.Name.Equals("Sale"));
+        }
+
         private static StockServiceContracts.StockOrder ToContractStockOrder(StockOrder order)
         {
             if (order == null)
@@ -111,29 +176,6 @@ namespace StockServiceHost
                 return StockServiceContracts.StockOrder.OrderType.Purchase;
             else
                 return StockServiceContracts.StockOrder.OrderType.Sale;
-        }
-
-        public void UnregisterOnNewOrder(int callbackId)
-        {
-            if(this.CallbacksIds.ContainsKey(callbackId))
-            {
-                IStockServiceCallback callback = this.CallbacksIds[callbackId];
-                if (this.OnNewOrderCallbacks.Contains(callback))
-                    this.OnNewOrderCallbacks.Remove(callback);
-            }
-        }
-
-        public void UnregisterOnOrderStatusChange(int orderId, int callbackId)
-        {
-            if(this.CallbacksIds.ContainsKey(callbackId))
-            {
-                IStockServiceCallback callback = this.CallbacksIds[callbackId];
-                IEnumerable<HashSet<IStockServiceCallback>> statusChangeCallbacks = this.OnOrderStatusChangeCallbacks.Values
-                                                                            .Where(callbacks => callbacks.Contains(callback));
-
-                foreach (HashSet<IStockServiceCallback> callbacks in statusChangeCallbacks)
-                    callbacks.Remove(callback);
-            }
         }
     }
 }

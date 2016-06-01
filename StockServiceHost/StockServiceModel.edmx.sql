@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/01/2016 13:04:13
+-- Date Created: 06/01/2016 16:09:19
 -- Generated from EDMX file: C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceHost\StockServiceModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,20 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_StockOrderOrderType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[StockOrders] DROP CONSTRAINT [FK_StockOrderOrderType];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[StockOrders]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[StockOrders];
+GO
+IF OBJECT_ID(N'[dbo].[OrderTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OrderTypes];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -36,7 +45,6 @@ CREATE TABLE [dbo].[StockOrders] (
     [Company] nvarchar(max)  NOT NULL,
     [RequestDate] nvarchar(max)  NOT NULL,
     [ExecutionDate] nvarchar(max)  NOT NULL,
-    [TotalValue] float  NOT NULL,
     [Type_Id] int  NOT NULL
 );
 GO
