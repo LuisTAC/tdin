@@ -33,8 +33,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,18 +55,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderType.cs">
+      <DependentUpon>StockServiceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockOrder.cs">
+      <DependentUpon>StockServiceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="StockService.cs" />
+    <Compile Include="StockServiceModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockServiceModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StockServiceModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StockServiceModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockServiceModel.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="StockServiceModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StockServiceModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="StockServiceModel.edmx.diagram">
+      <DependentUpon>StockServiceModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StockMarket\StockServiceContracts.csproj">
       <Project>{ffae6c8a-95b3-4e29-9a73-5c1e98cb4cf8}</Project>
       <Name>StockServiceContracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StockServiceModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StockServiceModel.Context.cs</LastGenOutput>
+      <DependentUpon>StockServiceModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="StockServiceModel.edmx.sql" />
+    <Content Include="StockServiceModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StockServiceModel.cs</LastGenOutput>
+      <DependentUpon>StockServiceModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

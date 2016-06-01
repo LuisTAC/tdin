@@ -8,23 +8,15 @@ using System.Threading.Tasks;
 namespace StockServiceContracts
 {
     [DataContract]
-    public class StockOrder
+    public class StockOrder : ICloneable
     {
         public enum OrderType
         {
             Purchase, Sale
         }
 
-        public enum OrderState
-        {
-            Pending, Executed
-        }
-
         [DataMember]
         public int Id;
-
-        [DataMember]
-        public object Client;
 
         [DataMember]
         public string Email;
@@ -47,11 +39,42 @@ namespace StockServiceContracts
         [DataMember]
         public float StockValue;
 
-        [DataMember]
-        public float TotalValue;
+        public bool IsPending()
+        {
+            return this.ExecutionDate == null;
+        }
 
-        [DataMember]
-        public OrderState State;
+        public float GetTotalValue()
+        {
+            if (this.IsPending())
+                return -1;
+            else
+                return this.Quantity * this.StockValue;
+        }
 
+        public DateTime GetRequestDateTime()
+        {
+            return DateTime.Parse(this.RequestDate);
+        }
+
+        public DateTime GetExecutioDate()
+        {
+            return DateTime.Parse(this.ExecutionDate);
+        }
+
+        public object Clone()
+        {
+            return new StockOrder()
+            {
+                Id = this.Id,
+                Email = this.Email,
+                Type = this.Type,
+                Quantity = this.Quantity,
+                Company = this.Company,
+                RequestDate = this.RequestDate,
+                ExecutionDate = this.ExecutionDate,
+                StockValue = this.StockValue
+            };
+        }
     }
 }

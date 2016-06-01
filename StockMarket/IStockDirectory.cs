@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StockMarket;
+using StockMarket.Faults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,21 +13,33 @@ namespace StockServiceContracts
     [ServiceContract]
     public interface IStockDirectory
     {
-
-        [OperationContract]
+        [OperationContract(IsOneWay = false)]
+        [FaultContract(typeof(StockServiceFault))]
         StockOrder OrderStock(string company, int quantity, StockOrder.OrderType type);
 
-        [OperationContract]
-        StockOrder.OrderState GetOrderStatus(int id);
-
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
+        [FaultContract(typeof(OrderNotFoundFault))]
         void ExecuteOrder(int id, float stockValue);
 
-        [OperationContract]
-        IEnumerable<StockOrder> GetPendingOrders();
+        [OperationContract(IsOneWay = false)]
+        [FaultContract(typeof(StockServiceFault))]
+        IEnumerable<StockOrder> GetAllOrders();
 
-        [OperationContract]
-        IEnumerable<StockOrder> GetClientHistory();
-       
+        [OperationContract(IsOneWay = false)]
+        [FaultContract(typeof(StockServiceFault))]
+        IEnumerable<StockOrder> GetClientOrders(string clientEmail);
+
+        [OperationContract(IsOneWay = false)]
+        int RegisterOnNewOrder(IStockServiceCallback callback);
+
+        [OperationContract(IsOneWay = false)]
+        [FaultContract(typeof(OrderNotFoundFault))]
+        int RegisterOnOrderStatusChange(int id, IStockServiceCallback callback);
+
+        [OperationContract(IsOneWay = true)]
+        void UnregisterOnNewOrder(int callbackId);
+
+        [OperationContract(IsOneWay = true)]
+        void UnregisterOnOrderStatusChange(int orderId, int callbackId);
     }
 }
