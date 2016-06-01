@@ -9,3 +9,12 @@ C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking
 C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockServiceClient\obj\Debug\StockServiceClient.csproj.GenerateResource.Cache
 C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockServiceClient\obj\Debug\StockServiceClient.exe
 C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockServiceClient\obj\Debug\StockServiceClient.pdb
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\bin\Debug\StockServiceClient.exe
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\bin\Debug\StockServiceClient.exe.config
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\obj\Debug\StockServiceClient.csprojResolveAssemblyReference.cache
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\obj\Debug\StockServiceClient.Form1.resources
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\obj\Debug\StockServiceClient.Properties.Resources.resources
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\obj\Debug\StockServiceClient.csproj.GenerateResource.Cache
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\obj\Debug\StockServiceClient.exe
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\obj\Debug\StockServiceClient.pdb
+C:\Users\diogo\Desktop\College\TDIN\Trabalho 2\StockMarket\StockServiceClient\bin\Debug\StockServiceClient.pdb

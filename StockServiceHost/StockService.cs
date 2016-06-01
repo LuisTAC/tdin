@@ -16,12 +16,9 @@ namespace StockServiceHost
         private Dictionary<int, IStockServiceCallback> CallbacksIds;
         private Dictionary<int, HashSet<IStockServiceCallback>> OnOrderStatusChangeCallbacks;
         private HashSet<IStockServiceCallback> OnNewOrderCallbacks;
-        
-        private StockServiceModelContainer database;
 
         public StockService()
         {
-            this.database = new StockServiceModelContainer();
             this.CallbacksIds = new Dictionary<int, IStockServiceCallback>();
             this.OnOrderStatusChangeCallbacks = new Dictionary<int, HashSet<IStockServiceCallback>>();
             this.OnNewOrderCallbacks = new HashSet<IStockServiceCallback>();
@@ -29,70 +26,90 @@ namespace StockServiceHost
 
         public StockServiceContracts.StockOrder OrderStock(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email)
         {
-            StockOrder toAdd = new StockOrder()
-            {
-                Company = company,
-                Quantity = quantity,
-                Email = email,
-                RequestDate = DateTime.UtcNow.ToString(),
-                Type = this.GetOrderTypeFromEnum(type)
-            };
+            Console.WriteLine("Received request!");
 
-            try
+            using(StockServiceModelContainer database = new StockServiceModelContainer())
             {
-                toAdd = this.database.StockOrders.Add(toAdd);
-                this.database.SaveChanges();
-            } catch(Exception e)
-            {
-                throw new FaultException<StockServiceFault>(new StockServiceFault(e.Message));
+                database.Database.Connection.Open();
+
+                StockOrder toAdd = new StockOrder()
+                {
+                    Company = company,
+                    Quantity = quantity,
+                    Email = email,
+                    RequestDate = DateTime.UtcNow.ToString(),
+                    Type = this.GetOrderTypeFromEnum(type, database)
+                };
+
+                Console.WriteLine("Created Order!");
+
+                try
+                {
+                    toAdd = database.StockOrders.Add(toAdd);
+                    database.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new FaultException<StockServiceFault>(new StockServiceFault(e.Message));
+                }
+
+                StockServiceContracts.StockOrder createdOrder = StockService.ToContractStockOrder(toAdd);
+                foreach (IStockServiceCallback callback in this.OnNewOrderCallbacks)
+                    callback.OnNewOrder(createdOrder);
+
+                return createdOrder;
             }
-
-            StockServiceContracts.StockOrder createdOrder = StockService.ToContractStockOrder(toAdd);
-            foreach (IStockServiceCallback callback in this.OnNewOrderCallbacks)
-                callback.OnNewOrder(createdOrder);
-
-            return createdOrder;
         }
 
         public void ExecuteOrder(int id, float stockValue)
         {
-            StockOrder order = this.database.StockOrders.Find(id);
-            if (order == null)
-                throw new FaultException<OrderNotFoundFault>(new OrderNotFoundFault(id));
+            using (StockServiceModelContainer database = new StockServiceModelContainer())
+            {
+                StockOrder order = database.StockOrders.Find(id);
+                if (order == null)
+                    throw new FaultException<OrderNotFoundFault>(new OrderNotFoundFault(id));
 
-            try
-            {
-                order.StockValue = stockValue;
-                order.ExecutionDate = DateTime.UtcNow.ToString();
-                this.database.SaveChanges();
-            } catch(Exception e)
-            {
-                throw new FaultException<StockServiceFault>(new StockServiceFault(e.Message));
-            }
-
-            StockServiceContracts.StockOrder updatedOrder = StockService.ToContractStockOrder(order);
-            if(this.OnOrderStatusChangeCallbacks.ContainsKey(id))
-            {
-                HashSet<IStockServiceCallback> callbacks = this.OnOrderStatusChangeCallbacks[id];
-                if(callbacks != null)
+                try
                 {
-                    foreach(IStockServiceCallback callback in callbacks)
-                        callback.OnOrderStatusChange(updatedOrder);
+                    order.StockValue = stockValue;
+                    order.ExecutionDate = DateTime.UtcNow.ToString();
+                    database.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new FaultException<StockServiceFault>(new StockServiceFault(e.Message));
+                }
+
+                StockServiceContracts.StockOrder updatedOrder = StockService.ToContractStockOrder(order);
+                if (this.OnOrderStatusChangeCallbacks.ContainsKey(id))
+                {
+                    HashSet<IStockServiceCallback> callbacks = this.OnOrderStatusChangeCallbacks[id];
+                    if (callbacks != null)
+                    {
+                        foreach (IStockServiceCallback callback in callbacks)
+                            callback.OnOrderStatusChange(updatedOrder);
+                    }
                 }
             }
         }
 
         public IEnumerable<StockServiceContracts.StockOrder> GetAllOrders()
         {
-            return from stockOrder in this.database.StockOrders
-                   select StockService.ToContractStockOrder(stockOrder);
+            using (StockServiceModelContainer database = new StockServiceModelContainer())
+            {
+                return from stockOrder in database.StockOrders
+                       select StockService.ToContractStockOrder(stockOrder);
+            }
         }
 
         public IEnumerable<StockServiceContracts.StockOrder> GetClientOrders(string clientEmail)
         {
-            return from stockOrder in database.StockOrders
-                   where stockOrder.Email == clientEmail
-                   select StockService.ToContractStockOrder(stockOrder);
+            using(StockServiceModelContainer database = new StockServiceModelContainer())
+            {
+                return from stockOrder in database.StockOrders
+                       where stockOrder.Email == clientEmail
+                       select StockService.ToContractStockOrder(stockOrder);
+            }
         }
 
         public int RegisterOnNewOrder(IStockServiceCallback callback)
@@ -106,19 +123,22 @@ namespace StockServiceHost
 
         public int RegisterOnOrderStatusChange(int id, IStockServiceCallback callback)
         {
-            StockOrder order = this.database.StockOrders.Find(id);
-            if (order == null)
-                throw new FaultException<OrderNotFoundFault>(new OrderNotFoundFault(id));
+            using (StockServiceModelContainer database = new StockServiceModelContainer())
+            {
+                StockOrder order = database.StockOrders.Find(id);
+                if (order == null)
+                    throw new FaultException<OrderNotFoundFault>(new OrderNotFoundFault(id));
 
-            int callbackId = Interlocked.Increment(ref this.LastCallbackId);
-            this.CallbacksIds.Add(callbackId, callback);
+                int callbackId = Interlocked.Increment(ref this.LastCallbackId);
+                this.CallbacksIds.Add(callbackId, callback);
 
-            if (this.OnOrderStatusChangeCallbacks.ContainsKey(id) == false)
-                this.OnOrderStatusChangeCallbacks[id] = new HashSet<IStockServiceCallback>();
+                if (this.OnOrderStatusChangeCallbacks.ContainsKey(id) == false)
+                    this.OnOrderStatusChangeCallbacks[id] = new HashSet<IStockServiceCallback>();
 
-            this.OnOrderStatusChangeCallbacks[id].Add(callback);
+                this.OnOrderStatusChangeCallbacks[id].Add(callback);
 
-            return callbackId;
+                return callbackId;
+            }
         }
 
         public void UnregisterOnNewOrder(int callbackId)
@@ -144,12 +164,12 @@ namespace StockServiceHost
             }
         }
 
-        private OrderType GetOrderTypeFromEnum(StockServiceContracts.StockOrder.OrderType orderType)
+        private OrderType GetOrderTypeFromEnum(StockServiceContracts.StockOrder.OrderType orderType, StockServiceModelContainer database)
         {
             if (orderType == StockServiceContracts.StockOrder.OrderType.Purchase)
-                return this.database.OrderTypes.First(o => o.Name.Equals("Purchase"));
+                return database.OrderTypes.First(o => o.Name.Equals("Purchase"));
             else
-                return this.database.OrderTypes.First(o => o.Name.Equals("Sale"));
+                return database.OrderTypes.First(o => o.Name.Equals("Sale"));
         }
 
         private static StockServiceContracts.StockOrder ToContractStockOrder(StockOrder order)

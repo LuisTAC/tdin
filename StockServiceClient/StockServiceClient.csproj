@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StockMarket, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -73,6 +74,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\StockServiceContracts.StockOrder.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -91,13 +93,15 @@
     <None Include="Service References\StockService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StockService\StockService.wsdl" />
-    <None Include="Service References\StockService\StockServiceClient.StockService.StockOrder.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <None Include="Service References\StockService\item3.xsd">
+      <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\StockService\StockService.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
