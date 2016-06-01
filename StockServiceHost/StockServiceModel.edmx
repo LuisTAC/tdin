@@ -23,8 +23,7 @@
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Company" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RequestDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ExecutionDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TotalValue" Type="float" Nullable="false" />
+    <Property Name="ExecutionDate" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Type_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderTypes">
@@ -68,7 +67,7 @@
           <Property Name="Email" Type="String" Nullable="false" />
           <Property Name="Company" Type="String" Nullable="false" />
           <Property Name="RequestDate" Type="String" Nullable="false" />
-          <Property Name="ExecutionDate" Type="String" Nullable="false" />
+          <Property Name="ExecutionDate" Type="String" Nullable="true" />
           <NavigationProperty Name="Type" Relationship="StockServiceModel.StockOrderOrderType" FromRole="StockOrder" ToRole="OrderType" />
         </EntityType>
         <EntityType Name="OrderType">

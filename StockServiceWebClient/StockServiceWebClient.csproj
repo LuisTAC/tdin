@@ -243,6 +243,9 @@
     <None Include="Service References\StockService\item.disco" />
     <None Include="Service References\StockService\configuration91.svcinfo" />
     <None Include="Service References\StockService\configuration.svcinfo" />
+    <None Include="Service References\StockService\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\StockService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

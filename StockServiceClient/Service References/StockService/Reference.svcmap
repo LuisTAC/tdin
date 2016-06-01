@@ -22,11 +22,12 @@
     <MetadataSource Address="http://localhost:9000/StockService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="b2efb3f0-e86e-45f8-b196-c7950ac63e24" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd0" />
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="4246a05f-e4d7-4f06-9f2f-48f0c139699b" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd1" />
     <MetadataFile FileName="item.disco" MetadataType="Disco" ID="1810a5af-2ae2-4dd1-b805-1426ea9ab5f3" SourceId="1" SourceUrl="http://localhost:9000/StockService/?disco" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="f9775fa6-a3ba-45a5-b14e-282dc4948b92" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd2" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="b2efb3f0-e86e-45f8-b196-c7950ac63e24" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd0" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="bee26e83-8081-4f2f-ac11-b60c5b26d459" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd3" />
     <MetadataFile FileName="StockService.wsdl" MetadataType="Wsdl" ID="93a26f81-dcd1-46bb-a309-2ba776547971" SourceId="1" SourceUrl="http://localhost:9000/StockService/?wsdl" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="f9775fa6-a3ba-45a5-b14e-282dc4948b92" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

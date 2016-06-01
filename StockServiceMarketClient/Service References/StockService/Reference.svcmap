@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0fa2faf6-52ed-4c75-84d7-fab752cc8746" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9000/StockService/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="6896e15f-7bb0-4dc7-8260-0dd5efffaee7" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd0" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="931b8ca4-532c-457c-99f4-d39ec892e1c2" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="44d6d7b5-f252-4a09-b9a0-f649459a1a4b" SourceId="1" SourceUrl="http://localhost:9000/StockService/?disco" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="c09007f0-5191-4a1c-918a-255c450f3755" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd3" />
+    <MetadataFile FileName="StockService.wsdl" MetadataType="Wsdl" ID="904b4521-5299-4871-98b4-114737041773" SourceId="1" SourceUrl="http://localhost:9000/StockService/?wsdl" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="eb0c33fa-c70b-4bf5-812a-7579f5e9036a" SourceId="1" SourceUrl="http://localhost:9000/StockService/?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -9,273 +9,75 @@
 //------------------------------------------------------------------------------
 
 namespace StockServiceClient.StockService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="StockOrder", Namespace="http://schemas.datacontract.org/2004/07/StockServiceContracts")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(StockServiceClient.StockService.StockOrder.OrderType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(StockServiceClient.StockService.StockOrder.OrderState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(StockServiceClient.StockService.StockOrder[]))]
-    public partial class StockOrder : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object ClientField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CompanyField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ExecutionDateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int QuantityField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RequestDateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private StockServiceClient.StockService.StockOrder.OrderState StateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float StockValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float TotalValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private StockServiceClient.StockService.StockOrder.OrderType TypeField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public object Client {
-            get {
-                return this.ClientField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ClientField, value) != true)) {
-                    this.ClientField = value;
-                    this.RaisePropertyChanged("Client");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Company {
-            get {
-                return this.CompanyField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
-                    this.CompanyField = value;
-                    this.RaisePropertyChanged("Company");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email {
-            get {
-                return this.EmailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
-                    this.EmailField = value;
-                    this.RaisePropertyChanged("Email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ExecutionDate {
-            get {
-                return this.ExecutionDateField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ExecutionDateField, value) != true)) {
-                    this.ExecutionDateField = value;
-                    this.RaisePropertyChanged("ExecutionDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Quantity {
-            get {
-                return this.QuantityField;
-            }
-            set {
-                if ((this.QuantityField.Equals(value) != true)) {
-                    this.QuantityField = value;
-                    this.RaisePropertyChanged("Quantity");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RequestDate {
-            get {
-                return this.RequestDateField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RequestDateField, value) != true)) {
-                    this.RequestDateField = value;
-                    this.RaisePropertyChanged("RequestDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public StockServiceClient.StockService.StockOrder.OrderState State {
-            get {
-                return this.StateField;
-            }
-            set {
-                if ((this.StateField.Equals(value) != true)) {
-                    this.StateField = value;
-                    this.RaisePropertyChanged("State");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float StockValue {
-            get {
-                return this.StockValueField;
-            }
-            set {
-                if ((this.StockValueField.Equals(value) != true)) {
-                    this.StockValueField = value;
-                    this.RaisePropertyChanged("StockValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float TotalValue {
-            get {
-                return this.TotalValueField;
-            }
-            set {
-                if ((this.TotalValueField.Equals(value) != true)) {
-                    this.TotalValueField = value;
-                    this.RaisePropertyChanged("TotalValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public StockServiceClient.StockService.StockOrder.OrderType Type {
-            get {
-                return this.TypeField;
-            }
-            set {
-                if ((this.TypeField.Equals(value) != true)) {
-                    this.TypeField = value;
-                    this.RaisePropertyChanged("Type");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-        [System.Runtime.Serialization.DataContractAttribute(Name="StockOrder.OrderType", Namespace="http://schemas.datacontract.org/2004/07/StockServiceContracts")]
-        public enum OrderType : int {
-            
-            [System.Runtime.Serialization.EnumMemberAttribute()]
-            Purchase = 0,
-            
-            [System.Runtime.Serialization.EnumMemberAttribute()]
-            Sale = 1,
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-        [System.Runtime.Serialization.DataContractAttribute(Name="StockOrder.OrderState", Namespace="http://schemas.datacontract.org/2004/07/StockServiceContracts")]
-        public enum OrderState : int {
-            
-            [System.Runtime.Serialization.EnumMemberAttribute()]
-            Pending = 0,
-            
-            [System.Runtime.Serialization.EnumMemberAttribute()]
-            Executed = 1,
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StockService.IStockDirectory")]
     public interface IStockDirectory {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/OrderStock", ReplyAction="http://tempuri.org/IStockDirectory/OrderStockResponse")]
-        StockServiceClient.StockService.StockOrder OrderStock(string company, int quantity, StockServiceClient.StockService.StockOrder.OrderType type);
+        [System.ServiceModel.FaultContractAttribute(typeof(StockMarket.Faults.StockServiceFault), Action="http://tempuri.org/IStockDirectory/OrderStockStockServiceFaultFault", Name="StockServiceFault", Namespace="http://schemas.datacontract.org/2004/07/StockMarket.Faults")]
+        StockServiceContracts.StockOrder OrderStock(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/OrderStock", ReplyAction="http://tempuri.org/IStockDirectory/OrderStockResponse")]
-        System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder> OrderStockAsync(string company, int quantity, StockServiceClient.StockService.StockOrder.OrderType type);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetOrderStatus", ReplyAction="http://tempuri.org/IStockDirectory/GetOrderStatusResponse")]
-        StockServiceClient.StockService.StockOrder.OrderState GetOrderStatus(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetOrderStatus", ReplyAction="http://tempuri.org/IStockDirectory/GetOrderStatusResponse")]
-        System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder.OrderState> GetOrderStatusAsync(int id);
+        System.Threading.Tasks.Task<StockServiceContracts.StockOrder> OrderStockAsync(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/ExecuteOrder", ReplyAction="http://tempuri.org/IStockDirectory/ExecuteOrderResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(StockMarket.Faults.OrderNotFoundFault), Action="http://tempuri.org/IStockDirectory/ExecuteOrderOrderNotFoundFaultFault", Name="OrderNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/StockMarket.Faults")]
         void ExecuteOrder(int id, float stockValue);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/ExecuteOrder", ReplyAction="http://tempuri.org/IStockDirectory/ExecuteOrderResponse")]
         System.Threading.Tasks.Task ExecuteOrderAsync(int id, float stockValue);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetPendingOrders", ReplyAction="http://tempuri.org/IStockDirectory/GetPendingOrdersResponse")]
-        StockServiceClient.StockService.StockOrder[] GetPendingOrders();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetAllOrders", ReplyAction="http://tempuri.org/IStockDirectory/GetAllOrdersResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(StockMarket.Faults.StockServiceFault), Action="http://tempuri.org/IStockDirectory/GetAllOrdersStockServiceFaultFault", Name="StockServiceFault", Namespace="http://schemas.datacontract.org/2004/07/StockMarket.Faults")]
+        StockServiceContracts.StockOrder[] GetAllOrders();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetPendingOrders", ReplyAction="http://tempuri.org/IStockDirectory/GetPendingOrdersResponse")]
-        System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder[]> GetPendingOrdersAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetAllOrders", ReplyAction="http://tempuri.org/IStockDirectory/GetAllOrdersResponse")]
+        System.Threading.Tasks.Task<StockServiceContracts.StockOrder[]> GetAllOrdersAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetClientHistory", ReplyAction="http://tempuri.org/IStockDirectory/GetClientHistoryResponse")]
-        StockServiceClient.StockService.StockOrder[] GetClientHistory();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetClientOrders", ReplyAction="http://tempuri.org/IStockDirectory/GetClientOrdersResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(StockMarket.Faults.StockServiceFault), Action="http://tempuri.org/IStockDirectory/GetClientOrdersStockServiceFaultFault", Name="StockServiceFault", Namespace="http://schemas.datacontract.org/2004/07/StockMarket.Faults")]
+        StockServiceContracts.StockOrder[] GetClientOrders(string clientEmail);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetClientHistory", ReplyAction="http://tempuri.org/IStockDirectory/GetClientHistoryResponse")]
-        System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder[]> GetClientHistoryAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/GetClientOrders", ReplyAction="http://tempuri.org/IStockDirectory/GetClientOrdersResponse")]
+        System.Threading.Tasks.Task<StockServiceContracts.StockOrder[]> GetClientOrdersAsync(string clientEmail);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnNewOrder", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnNewOrderResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.StockServiceFault))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.OrderNotFoundFault))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder.OrderType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder[]))]
+        int RegisterOnNewOrder(object callback);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnNewOrder", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnNewOrderResponse")]
+        System.Threading.Tasks.Task<int> RegisterOnNewOrderAsync(object callback);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChange", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(StockMarket.Faults.OrderNotFoundFault), Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeOrderNotFoundFaultF" +
+            "ault", Name="OrderNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/StockMarket.Faults")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.StockServiceFault))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.OrderNotFoundFault))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder.OrderType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder[]))]
+        int RegisterOnOrderStatusChange(int id, object callback);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChange", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeResponse")]
+        System.Threading.Tasks.Task<int> RegisterOnOrderStatusChangeAsync(int id, object callback);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockDirectory/UnregisterOnNewOrder")]
+        void UnregisterOnNewOrder(int callbackId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockDirectory/UnregisterOnNewOrder")]
+        System.Threading.Tasks.Task UnregisterOnNewOrderAsync(int callbackId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockDirectory/UnregisterOnOrderStatusChange")]
+        void UnregisterOnOrderStatusChange(int orderId, int callbackId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockDirectory/UnregisterOnOrderStatusChange")]
+        System.Threading.Tasks.Task UnregisterOnOrderStatusChangeAsync(int orderId, int callbackId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -305,20 +107,12 @@ namespace StockServiceClient.StockService {
                 base(binding, remoteAddress) {
         }
         
-        public StockServiceClient.StockService.StockOrder OrderStock(string company, int quantity, StockServiceClient.StockService.StockOrder.OrderType type) {
-            return base.Channel.OrderStock(company, quantity, type);
+        public StockServiceContracts.StockOrder OrderStock(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email) {
+            return base.Channel.OrderStock(company, quantity, type, email);
         }
         
-        public System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder> OrderStockAsync(string company, int quantity, StockServiceClient.StockService.StockOrder.OrderType type) {
-            return base.Channel.OrderStockAsync(company, quantity, type);
-        }
-        
-        public StockServiceClient.StockService.StockOrder.OrderState GetOrderStatus(int id) {
-            return base.Channel.GetOrderStatus(id);
-        }
-        
-        public System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder.OrderState> GetOrderStatusAsync(int id) {
-            return base.Channel.GetOrderStatusAsync(id);
+        public System.Threading.Tasks.Task<StockServiceContracts.StockOrder> OrderStockAsync(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email) {
+            return base.Channel.OrderStockAsync(company, quantity, type, email);
         }
         
         public void ExecuteOrder(int id, float stockValue) {
@@ -329,20 +123,52 @@ namespace StockServiceClient.StockService {
             return base.Channel.ExecuteOrderAsync(id, stockValue);
         }
         
-        public StockServiceClient.StockService.StockOrder[] GetPendingOrders() {
-            return base.Channel.GetPendingOrders();
+        public StockServiceContracts.StockOrder[] GetAllOrders() {
+            return base.Channel.GetAllOrders();
         }
         
-        public System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder[]> GetPendingOrdersAsync() {
-            return base.Channel.GetPendingOrdersAsync();
+        public System.Threading.Tasks.Task<StockServiceContracts.StockOrder[]> GetAllOrdersAsync() {
+            return base.Channel.GetAllOrdersAsync();
         }
         
-        public StockServiceClient.StockService.StockOrder[] GetClientHistory() {
-            return base.Channel.GetClientHistory();
+        public StockServiceContracts.StockOrder[] GetClientOrders(string clientEmail) {
+            return base.Channel.GetClientOrders(clientEmail);
         }
         
-        public System.Threading.Tasks.Task<StockServiceClient.StockService.StockOrder[]> GetClientHistoryAsync() {
-            return base.Channel.GetClientHistoryAsync();
+        public System.Threading.Tasks.Task<StockServiceContracts.StockOrder[]> GetClientOrdersAsync(string clientEmail) {
+            return base.Channel.GetClientOrdersAsync(clientEmail);
+        }
+        
+        public int RegisterOnNewOrder(object callback) {
+            return base.Channel.RegisterOnNewOrder(callback);
+        }
+        
+        public System.Threading.Tasks.Task<int> RegisterOnNewOrderAsync(object callback) {
+            return base.Channel.RegisterOnNewOrderAsync(callback);
+        }
+        
+        public int RegisterOnOrderStatusChange(int id, object callback) {
+            return base.Channel.RegisterOnOrderStatusChange(id, callback);
+        }
+        
+        public System.Threading.Tasks.Task<int> RegisterOnOrderStatusChangeAsync(int id, object callback) {
+            return base.Channel.RegisterOnOrderStatusChangeAsync(id, callback);
+        }
+        
+        public void UnregisterOnNewOrder(int callbackId) {
+            base.Channel.UnregisterOnNewOrder(callbackId);
+        }
+        
+        public System.Threading.Tasks.Task UnregisterOnNewOrderAsync(int callbackId) {
+            return base.Channel.UnregisterOnNewOrderAsync(callbackId);
+        }
+        
+        public void UnregisterOnOrderStatusChange(int orderId, int callbackId) {
+            base.Channel.UnregisterOnOrderStatusChange(orderId, callbackId);
+        }
+        
+        public System.Threading.Tasks.Task UnregisterOnOrderStatusChangeAsync(int orderId, int callbackId) {
+            return base.Channel.UnregisterOnOrderStatusChangeAsync(orderId, callbackId);
         }
     }
 }

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="StockService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IStockDirectory_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:9000/StockService/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:9000/StockService/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/StockMarket.Faults" />
+      <xsd:import schemaLocation="http://localhost:9000/StockService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:9000/StockService/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/StockServiceContracts" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IStockDirectory_OrderStock_InputMessage">
+    <wsdl:part name="parameters" element="tns:OrderStock" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_OrderStock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OrderStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_OrderStock_StockServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/StockMarket.Faults" name="detail" element="q1:StockServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_ExecuteOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExecuteOrder" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_ExecuteOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExecuteOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_ExecuteOrder_OrderNotFoundFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/StockMarket.Faults" name="detail" element="q2:OrderNotFoundFault" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_GetAllOrders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrders" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_GetAllOrders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_GetAllOrders_StockServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/StockMarket.Faults" name="detail" element="q3:StockServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_GetClientOrders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientOrders" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_GetClientOrders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientOrdersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_GetClientOrders_StockServiceFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/StockMarket.Faults" name="detail" element="q4:StockServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_RegisterOnNewOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterOnNewOrder" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_RegisterOnNewOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterOnNewOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_RegisterOnOrderStatusChange_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterOnOrderStatusChange" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_RegisterOnOrderStatusChange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterOnOrderStatusChangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_RegisterOnOrderStatusChange_OrderNotFoundFaultFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/StockMarket.Faults" name="detail" element="q5:OrderNotFoundFault" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_UnregisterOnNewOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnregisterOnNewOrder" />
+  </wsdl:message>
+  <wsdl:message name="IStockDirectory_UnregisterOnOrderStatusChange_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnregisterOnOrderStatusChange" />
+  </wsdl:message>
+  <wsdl:portType name="IStockDirectory">
+    <wsdl:operation name="OrderStock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/OrderStock" message="tns:IStockDirectory_OrderStock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockDirectory/OrderStockResponse" message="tns:IStockDirectory_OrderStock_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IStockDirectory/OrderStockStockServiceFaultFault" name="StockServiceFaultFault" message="tns:IStockDirectory_OrderStock_StockServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/ExecuteOrder" message="tns:IStockDirectory_ExecuteOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockDirectory/ExecuteOrderResponse" message="tns:IStockDirectory_ExecuteOrder_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IStockDirectory/ExecuteOrderOrderNotFoundFaultFault" name="OrderNotFoundFaultFault" message="tns:IStockDirectory_ExecuteOrder_OrderNotFoundFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/GetAllOrders" message="tns:IStockDirectory_GetAllOrders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockDirectory/GetAllOrdersResponse" message="tns:IStockDirectory_GetAllOrders_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IStockDirectory/GetAllOrdersStockServiceFaultFault" name="StockServiceFaultFault" message="tns:IStockDirectory_GetAllOrders_StockServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientOrders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/GetClientOrders" message="tns:IStockDirectory_GetClientOrders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockDirectory/GetClientOrdersResponse" message="tns:IStockDirectory_GetClientOrders_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IStockDirectory/GetClientOrdersStockServiceFaultFault" name="StockServiceFaultFault" message="tns:IStockDirectory_GetClientOrders_StockServiceFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterOnNewOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/RegisterOnNewOrder" message="tns:IStockDirectory_RegisterOnNewOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockDirectory/RegisterOnNewOrderResponse" message="tns:IStockDirectory_RegisterOnNewOrder_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterOnOrderStatusChange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChange" message="tns:IStockDirectory_RegisterOnOrderStatusChange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeResponse" message="tns:IStockDirectory_RegisterOnOrderStatusChange_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeOrderNotFoundFaultFault" name="OrderNotFoundFaultFault" message="tns:IStockDirectory_RegisterOnOrderStatusChange_OrderNotFoundFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterOnNewOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/UnregisterOnNewOrder" message="tns:IStockDirectory_UnregisterOnNewOrder_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterOnOrderStatusChange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockDirectory/UnregisterOnOrderStatusChange" message="tns:IStockDirectory_UnregisterOnOrderStatusChange_InputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IStockDirectory" type="tns:IStockDirectory">
+    <wsp:PolicyReference URI="#NetTcpBinding_IStockDirectory_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="OrderStock">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/OrderStock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="StockServiceFaultFault">
+        <soap12:fault use="literal" name="StockServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteOrder">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/ExecuteOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="OrderNotFoundFaultFault">
+        <soap12:fault use="literal" name="OrderNotFoundFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOrders">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/GetAllOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="StockServiceFaultFault">
+        <soap12:fault use="literal" name="StockServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientOrders">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/GetClientOrders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="StockServiceFaultFault">
+        <soap12:fault use="literal" name="StockServiceFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterOnNewOrder">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/RegisterOnNewOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterOnOrderStatusChange">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="OrderNotFoundFaultFault">
+        <soap12:fault use="literal" name="OrderNotFoundFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterOnNewOrder">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/UnregisterOnNewOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterOnOrderStatusChange">
+      <soap12:operation soapAction="http://tempuri.org/IStockDirectory/UnregisterOnOrderStatusChange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StockService">
+    <wsdl:port name="NetTcpBinding_IStockDirectory" binding="tns:NetTcpBinding_IStockDirectory">
+      <soap12:address location="net.tcp://localhost:8700/StockService/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8700/StockService/</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LTAC\Luis</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

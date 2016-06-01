@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockServiceClient", "Stock
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockServiceWebClient", "StockServiceWebClient\StockServiceWebClient.csproj", "{DFE3508C-A3B2-4545-A8AB-57B435A1E2B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockServiceMarketClient", "StockServiceMarketClient\StockServiceMarketClient.csproj", "{0B69E104-5B73-4EA0-B811-CFD80FEE540C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{DFE3508C-A3B2-4545-A8AB-57B435A1E2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFE3508C-A3B2-4545-A8AB-57B435A1E2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFE3508C-A3B2-4545-A8AB-57B435A1E2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B69E104-5B73-4EA0-B811-CFD80FEE540C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B69E104-5B73-4EA0-B811-CFD80FEE540C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B69E104-5B73-4EA0-B811-CFD80FEE540C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B69E104-5B73-4EA0-B811-CFD80FEE540C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
