@@ -54,8 +54,7 @@ namespace StockServiceHost
                 }
 
                 StockServiceContracts.StockOrder createdOrder = StockService.ToContractStockOrder(toAdd);
-                foreach (IStockServiceCallback callback in this.OnNewOrderCallbacks)
-                    callback.OnNewOrder(createdOrder);
+                this.FireOnNewOrder(createdOrder);
 
                 return createdOrder;
             }
@@ -81,15 +80,7 @@ namespace StockServiceHost
                 }
 
                 StockServiceContracts.StockOrder updatedOrder = StockService.ToContractStockOrder(order);
-                if (this.OnOrderStatusChangeCallbacks.ContainsKey(id))
-                {
-                    HashSet<IStockServiceCallback> callbacks = this.OnOrderStatusChangeCallbacks[id];
-                    if (callbacks != null)
-                    {
-                        foreach (IStockServiceCallback callback in callbacks)
-                            callback.OnOrderStatusChange(updatedOrder);
-                    }
-                }
+                this.FireOnOrderStatusChange(updatedOrder);
             }
         }
 
@@ -164,6 +155,55 @@ namespace StockServiceHost
             }
         }
 
+        private void FireOnNewOrder(StockServiceContracts.StockOrder order)
+        {
+            List<IStockServiceCallback> callbacksToRemove = new List<IStockServiceCallback>();
+
+            foreach (IStockServiceCallback callback in this.OnNewOrderCallbacks)
+            {
+                try
+                {
+                    callback.OnNewOrder(order);
+                } catch(Exception e)
+                {
+                    Console.WriteLine("Could not access a callback: " + e.Message + ".");
+                    Console.WriteLine("Removing it to avoid more errors...");
+                    callbacksToRemove.Add(callback);
+                }
+            }
+
+            foreach (IStockServiceCallback failingCallback in callbacksToRemove)
+                this.OnNewOrderCallbacks.Remove(failingCallback);
+        }
+
+        private void FireOnOrderStatusChange(StockServiceContracts.StockOrder updatedOrder)
+        {
+            if (this.OnOrderStatusChangeCallbacks.ContainsKey(updatedOrder.Id))
+            {
+                HashSet<IStockServiceCallback> callbacks = this.OnOrderStatusChangeCallbacks[updatedOrder.Id];
+                if (callbacks != null)
+                {
+                    List<IStockServiceCallback> callbacksToRemove = new List<IStockServiceCallback>();
+
+                    foreach (IStockServiceCallback callback in callbacks) {
+                        try
+                        {
+                            callback.OnOrderStatusChange(updatedOrder);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Could not access a callback: " + e.Message + ".");
+                            Console.WriteLine("Removing it to avoid more errors...");
+                            callbacksToRemove.Add(callback);
+                        }
+                    }
+
+                    foreach (IStockServiceCallback failingCallback in callbacksToRemove)
+                        callbacks.Remove(failingCallback);
+                }
+            }
+        }
+
         private OrderType GetOrderTypeFromEnum(StockServiceContracts.StockOrder.OrderType orderType, StockServiceModelContainer database)
         {
             if (orderType == StockServiceContracts.StockOrder.OrderType.Purchase)
@@ -189,7 +229,7 @@ namespace StockServiceHost
                 Type = StockService.FromOrderTypeString(order.Type.Name)
             };
         }
-
+  
         private static StockServiceContracts.StockOrder.OrderType FromOrderTypeString(string orderType)
         {
             if (orderType.Equals("Purchase"))

@@ -1,11 +1,5 @@
 ﻿using StockServiceContracts;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static StockServiceContracts.StockOrder;
@@ -29,24 +23,37 @@ namespace StockServiceClient
             StockOrder.OrderType type = (StockOrder.OrderType)this.BuySell.SelectedItem;
             try
             {
-                proxy.OrderStock(this.CompanyName, (int)this.Amount.Value, type, this.Email.Text);
-                MessageBox.Show("Order created!", "Success");
+                this.DisableForm();
+                Task task = proxy.OrderStockAsync(this.CompanyName, (int)this.Amount.Value, type, this.Email.Text);
+                task.ContinueWith(t =>
+                {
+                    if (this.InvokeRequired)
+                    {
+                        Action clearAction = () => { this.ClearForm(); this.EnableForm(); };
+                        this.Invoke(clearAction);
+                    }
+                    else
+                    {
+                        this.ClearForm();
+                        this.EnableForm();
+                    }
+
+                    MessageBox.Show("Order created!", "Success");
+                });
             }
             catch (Exception exception)
             {
+                this.EnableForm();
                 MessageBox.Show("Could not process the request! " + exception.Message, "Error");
             }
+        }
 
-            /*
-            if(this.submit_button.InvokeRequired)
-            {
-
-            }
-            else
-            {
-
-            }
-            */
+        private void ClearForm()
+        {
+            this.Email.Text = "";
+            this.NameTextBox.Text = "";
+            this.Amount.Value = 0;
+            this.BuySell.SelectedIndex = 0;
         }
 
         private void DisableForm()

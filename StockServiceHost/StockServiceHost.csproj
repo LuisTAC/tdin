@@ -116,6 +116,10 @@
     <Content Include="ServiceModelDatabase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ServiceModelDatabase_log.ldf">
+      <DependentUpon>ServiceModelDatabase.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="StockServiceModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>StockServiceModel.Context.cs</LastGenOutput>
