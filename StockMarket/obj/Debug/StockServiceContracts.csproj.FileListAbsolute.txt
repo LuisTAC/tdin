@@ -1,5 +1,4 @@
 C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockMarket\bin\Debug\StockMarket.dll
 C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockMarket\bin\Debug\StockMarket.pdb
-C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockMarket\obj\Debug\StockServiceContracts.csprojResolveAssemblyReference.cache
 C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockMarket\obj\Debug\StockMarket.dll
 C:\Users\Miguel\Documents\FEUP\4º Ano\2º Semestre\TDIN\Projecto 2\TDIN_Banking\StockMarket\obj\Debug\StockMarket.pdb
