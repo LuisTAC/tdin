@@ -88,8 +88,9 @@ namespace StockServiceHost
         {
             using (StockServiceModelContainer database = new StockServiceModelContainer())
             {
-                return from stockOrder in database.StockOrders
-                       select StockService.ToContractStockOrder(stockOrder);
+                return database.StockOrders
+                    .Select(StockService.ToContractStockOrder)
+                    .ToList<StockServiceContracts.StockOrder>();
             }
         }
 
@@ -97,9 +98,10 @@ namespace StockServiceHost
         {
             using(StockServiceModelContainer database = new StockServiceModelContainer())
             {
-                return from stockOrder in database.StockOrders
-                       where stockOrder.Email == clientEmail
-                       select StockService.ToContractStockOrder(stockOrder);
+                return database.StockOrders
+                    .Where(s => s.Email == clientEmail)
+                    .Select(StockService.ToContractStockOrder)
+                    .ToList<StockServiceContracts.StockOrder>();
             }
         }
 

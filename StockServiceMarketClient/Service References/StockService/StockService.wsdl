@@ -222,7 +222,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8700/StockService/</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LTAC\Luis</Upn>
+          <Upn>DESKTOP-5B2GBV7\diogo</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
