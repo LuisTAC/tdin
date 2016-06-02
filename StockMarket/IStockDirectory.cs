@@ -10,7 +10,7 @@ using System.Text;
 namespace StockServiceContracts
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
-    [ServiceContract]
+    [ServiceContract(CallbackContract =typeof(IStockServiceCallback))]
     public interface IStockDirectory
     {
         [OperationContract(IsOneWay = false)]
@@ -30,11 +30,11 @@ namespace StockServiceContracts
         IEnumerable<StockOrder> GetClientOrders(string clientEmail);
 
         [OperationContract(IsOneWay = false)]
-        int RegisterOnNewOrder(IStockServiceCallback callback);
+        int RegisterOnNewOrder();
 
         [OperationContract(IsOneWay = false)]
         [FaultContract(typeof(OrderNotFoundFault))]
-        int RegisterOnOrderStatusChange(int id, IStockServiceCallback callback);
+        int RegisterOnOrderStatusChange(int id);
 
         [OperationContract(IsOneWay = true)]
         void UnregisterOnNewOrder(int callbackId);

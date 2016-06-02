@@ -7,49 +7,27 @@ using System.Windows.Forms;
 
 namespace StockServiceMarketClient
 {
-    public partial class MarketForm : Form
+    public partial class MarketForm : Form, StockService.IStockDirectoryCallback
     {
-        [ServiceContract(CallbackContract = typeof(StockMarket.IStockServiceCallback))]
-        public class MarketCallback : StockMarket.IStockServiceCallback
-        {
-            private int id;
-
-            public MarketCallback() { }
-
-            public void OnNewOrder(StockOrder order)
-            {
-                ListViewItem item = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate });
-                pendingList.Items.Add(item);
-            }
-
-            public void OnOrderStatusChange(StockOrder order)
-            {
-                ListViewItem item = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate, order.ExecutionDate, order.StockValue.ToString(), order.GetTotalValue().ToString() });
-                ((MarketForm)this).executedList.Items.Add(item);
-            }
-        }
+        private int id;
 
         private StockService.StockDirectoryClient proxy;
 
-        private MarketCallback callback = new MarketCallback();
-
         public MarketForm()
         {
-            this.proxy = new StockService.StockDirectoryClient();
+            this.proxy = new StockService.StockDirectoryClient(new InstanceContext(this));
             InitializeComponent();
-            this.callback = new MarketCallback();
         }
-
 
         private void MarketForm_Load(object sender, EventArgs e)
         {
             initViews();
-            proxy.RegisterOnNewOrder(this.callback);
+            this.id = proxy.RegisterOnNewOrder();
         }
 
         private void MarketForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            proxy.UnregisterOnNewOrder(callback.Id);
+            proxy.UnregisterOnNewOrder(this.id);
             proxy.Close();
         }
 
@@ -137,5 +115,16 @@ namespace StockServiceMarketClient
             this.executeButton.Enabled = true;
         }
 
+        public void OnNewOrder(StockOrder order)
+        {
+            ListViewItem item = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate });
+            this.pendingList.Items.Add(item);
+        }
+
+        public void OnOrderStatusChange(StockOrder order)
+        {
+            ListViewItem item = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate, order.ExecutionDate, order.StockValue.ToString(), order.GetTotalValue().ToString() });
+            ((MarketForm)this).executedList.Items.Add(item);
+        }
     }
 }

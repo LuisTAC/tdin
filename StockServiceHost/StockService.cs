@@ -10,6 +10,7 @@ using System.Threading;
 namespace StockServiceHost
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
+    [ServiceBehavior(ConcurrencyMode =ConcurrencyMode.Reentrant)]
     public class StockService : IStockDirectory
     {
         private int LastCallbackId = 0;
@@ -105,8 +106,11 @@ namespace StockServiceHost
             }
         }
 
-        public int RegisterOnNewOrder(IStockServiceCallback callback)
+        public int RegisterOnNewOrder()
         {
+            IStockServiceCallback callback = OperationContext.Current.GetCallbackChannel<IStockServiceCallback>();
+            Console.WriteLine("Someone registered for a new order!");
+
             int callbackId = Interlocked.Increment(ref this.LastCallbackId);
             this.CallbacksIds.Add(callbackId, callback);
             this.OnNewOrderCallbacks.Add(callback);
@@ -114,8 +118,11 @@ namespace StockServiceHost
             return callbackId;
         }
 
-        public int RegisterOnOrderStatusChange(int id, IStockServiceCallback callback)
+        public int RegisterOnOrderStatusChange(int id)
         {
+            IStockServiceCallback callback = OperationContext.Current.GetCallbackChannel<IStockServiceCallback>();
+            Console.WriteLine("Someone registered for an order status change!");
+
             using (StockServiceModelContainer database = new StockServiceModelContainer())
             {
                 StockOrder order = database.StockOrders.Find(id);
