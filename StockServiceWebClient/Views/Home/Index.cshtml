@@ -1,17 +1,31 @@
-﻿@{
+﻿@model StockServiceWebClient.Models.Order
+
+@{
     ViewBag.Title = "Stock Client";
 }
 
-<h3>New Order</h3>
-<form>
-    <label>Company</label>
-    <input type="text" />
+<div class="container">
+    <h3>New Order</h3>
+    @using (Html.BeginForm("AddStockOrder", "SubmitOrder", FormMethod.Post))
+    {
+            <label>E-mail</label>
+            @Html.TextBox("email")<br /> <br />
 
-    <label>Quantity</label>
-    <input type="number"/>
+            <label>Company</label>
+            @Html.TextBox("companyName")<br /> <br />
 
-    <input type="radio" name="orderType" value=1 checked>Buy
-    <input type="radio" name="orderType" value=2>Sell
+            <label>Quantity</label>
+            <input type="number" name="amount" /><br /> <br />
 
-    <button type="submit">Submit</button>
-</form>
+            @Html.Label("Buy  ")
+            @Html.RadioButton("type", 0)
+            <br />
+            @Html.Label("Sell  ")
+            @Html.RadioButton("type", 1)
+            <br />
+
+            <input type="submit"/>
+    }
+
+
+</div>

@@ -51,7 +51,7 @@ namespace StockServiceClient
         private void ClearForm()
         {
             this.Email.Text = "";
-            this.NameTextBox.Text = "";
+            this.CompanyTextBox.Text = "";
             this.Amount.Value = 0;
             this.BuySell.SelectedIndex = 0;
         }
@@ -60,7 +60,7 @@ namespace StockServiceClient
         {
             this.submit_button.Enabled = false;
             this.Email.Enabled = false;
-            this.NameTextBox.Enabled = false;
+            this.CompanyTextBox.Enabled = false;
             this.Amount.Enabled = false;
             this.BuySell.Enabled = false;
         }
@@ -68,7 +68,7 @@ namespace StockServiceClient
         {
             this.submit_button.Enabled = true;
             this.Email.Enabled = true;
-            this.NameTextBox.Enabled = true;
+            this.CompanyTextBox.Enabled = true;
             this.Amount.Enabled = true;
             this.BuySell.Enabled = true;
         }
