@@ -48,6 +48,8 @@
             this.dateExecExecutedHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.stockValExecutedHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.totalValExecutedHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.stockValInput = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.stockValInput)).BeginInit();
             this.SuspendLayout();
             // 
             // pendingLabel
@@ -77,44 +79,51 @@
             this.quantityPendHeader,
             this.companyPendHeader,
             this.dateReqPendHeader});
+            this.pendingList.FullRowSelect = true;
+            this.pendingList.GridLines = true;
             this.pendingList.Location = new System.Drawing.Point(12, 25);
             this.pendingList.Name = "pendingList";
             this.pendingList.Size = new System.Drawing.Size(560, 150);
-            this.pendingList.TabIndex = 2;
+            this.pendingList.TabIndex = 0;
             this.pendingList.UseCompatibleStateImageBehavior = false;
+            this.pendingList.View = System.Windows.Forms.View.Details;
             // 
             // idPendHeader
             // 
             this.idPendHeader.Text = "ID";
+            this.idPendHeader.Width = 25;
             // 
             // emailPendHeader
             // 
             this.emailPendHeader.Text = "Email";
+            this.emailPendHeader.Width = 120;
             // 
             // typePendHeader
             // 
             this.typePendHeader.Text = "Type";
+            this.typePendHeader.Width = 100;
             // 
             // quantityPendHeader
             // 
             this.quantityPendHeader.Text = "Quantity";
+            this.quantityPendHeader.Width = 100;
             // 
             // companyPendHeader
             // 
-            this.companyPendHeader.DisplayIndex = 5;
             this.companyPendHeader.Text = "Company";
+            this.companyPendHeader.Width = 100;
             // 
             // dateReqPendHeader
             // 
-            this.dateReqPendHeader.DisplayIndex = 4;
             this.dateReqPendHeader.Text = "Request Date";
+            this.dateReqPendHeader.Width = 110;
             // 
             // executeButton
             // 
             this.executeButton.Location = new System.Drawing.Point(497, 181);
             this.executeButton.Name = "executeButton";
             this.executeButton.Size = new System.Drawing.Size(75, 23);
-            this.executeButton.TabIndex = 3;
+            this.executeButton.TabIndex = 2;
             this.executeButton.Text = "Execute";
             this.executeButton.UseVisualStyleBackColor = true;
             this.executeButton.Click += new System.EventHandler(this.executeButton_Click);
@@ -131,15 +140,20 @@
             this.dateExecExecutedHeader,
             this.stockValExecutedHeader,
             this.totalValExecutedHeader});
+            this.executedList.FullRowSelect = true;
+            this.executedList.GridLines = true;
             this.executedList.Location = new System.Drawing.Point(12, 225);
+            this.executedList.MultiSelect = false;
             this.executedList.Name = "executedList";
             this.executedList.Size = new System.Drawing.Size(560, 150);
             this.executedList.TabIndex = 4;
             this.executedList.UseCompatibleStateImageBehavior = false;
+            this.executedList.View = System.Windows.Forms.View.Details;
             // 
             // idExecutedHeader
             // 
             this.idExecutedHeader.Text = "ID";
+            this.idExecutedHeader.Width = 25;
             // 
             // emailExecutedHeader
             // 
@@ -155,34 +169,47 @@
             // 
             // companyExecutedHeader
             // 
-            this.companyExecutedHeader.DisplayIndex = 8;
             this.companyExecutedHeader.Text = "Company";
             // 
             // dateReqExecutedHeader
             // 
-            this.dateReqExecutedHeader.DisplayIndex = 4;
             this.dateReqExecutedHeader.Text = "Request Date";
+            this.dateReqExecutedHeader.Width = 75;
             // 
             // dateExecExecutedHeader
             // 
-            this.dateExecExecutedHeader.DisplayIndex = 7;
             this.dateExecExecutedHeader.Text = "Execution Date";
+            this.dateExecExecutedHeader.Width = 75;
             // 
             // stockValExecutedHeader
             // 
-            this.stockValExecutedHeader.DisplayIndex = 5;
             this.stockValExecutedHeader.Text = "Stock Value";
+            this.stockValExecutedHeader.Width = 70;
             // 
             // totalValExecutedHeader
             // 
-            this.totalValExecutedHeader.DisplayIndex = 6;
             this.totalValExecutedHeader.Text = "Total Value";
+            this.totalValExecutedHeader.Width = 70;
+            // 
+            // stockValInput
+            // 
+            this.stockValInput.DecimalPlaces = 2;
+            this.stockValInput.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.stockValInput.Location = new System.Drawing.Point(443, 184);
+            this.stockValInput.Name = "stockValInput";
+            this.stockValInput.Size = new System.Drawing.Size(50, 20);
+            this.stockValInput.TabIndex = 1;
             // 
             // MarketForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 386);
+            this.Controls.Add(this.stockValInput);
             this.Controls.Add(this.executedList);
             this.Controls.Add(this.executeButton);
             this.Controls.Add(this.pendingList);
@@ -191,6 +218,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MarketForm";
             this.Text = "Market";
+            ((System.ComponentModel.ISupportInitialize)(this.stockValInput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,6 +246,7 @@
         private System.Windows.Forms.ColumnHeader stockValExecutedHeader;
         private System.Windows.Forms.ColumnHeader companyPendHeader;
         private System.Windows.Forms.ColumnHeader companyExecutedHeader;
+        private System.Windows.Forms.NumericUpDown stockValInput;
     }
 }
 
