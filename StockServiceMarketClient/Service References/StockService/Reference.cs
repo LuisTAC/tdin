@@ -12,7 +12,7 @@ namespace StockServiceMarketClient.StockService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StockService.IStockDirectory")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StockService.IStockDirectory", CallbackContract=typeof(StockServiceMarketClient.StockService.IStockDirectoryCallback))]
     public interface IStockDirectory {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/OrderStock", ReplyAction="http://tempuri.org/IStockDirectory/OrderStockResponse")]
@@ -44,28 +44,18 @@ namespace StockServiceMarketClient.StockService {
         System.Threading.Tasks.Task<StockServiceContracts.StockOrder[]> GetClientOrdersAsync(string clientEmail);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnNewOrder", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnNewOrderResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.StockServiceFault))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.OrderNotFoundFault))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder.OrderType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder[]))]
-        int RegisterOnNewOrder(object callback);
+        int RegisterOnNewOrder();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnNewOrder", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnNewOrderResponse")]
-        System.Threading.Tasks.Task<int> RegisterOnNewOrderAsync(object callback);
+        System.Threading.Tasks.Task<int> RegisterOnNewOrderAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChange", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(StockMarket.Faults.OrderNotFoundFault), Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeOrderNotFoundFaultF" +
             "ault", Name="OrderNotFoundFault", Namespace="http://schemas.datacontract.org/2004/07/StockMarket.Faults")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.StockServiceFault))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockMarket.Faults.OrderNotFoundFault))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder.OrderType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(StockServiceContracts.StockOrder[]))]
-        int RegisterOnOrderStatusChange(int id, object callback);
+        int RegisterOnOrderStatusChange(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChange", ReplyAction="http://tempuri.org/IStockDirectory/RegisterOnOrderStatusChangeResponse")]
-        System.Threading.Tasks.Task<int> RegisterOnOrderStatusChangeAsync(int id, object callback);
+        System.Threading.Tasks.Task<int> RegisterOnOrderStatusChangeAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockDirectory/UnregisterOnNewOrder")]
         void UnregisterOnNewOrder(int callbackId);
@@ -81,30 +71,41 @@ namespace StockServiceMarketClient.StockService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IStockDirectoryCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockDirectory/OnNewOrder")]
+        void OnNewOrder(StockServiceContracts.StockOrder order);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockDirectory/OnOrderStatusChange")]
+        void OnOrderStatusChange(StockServiceContracts.StockOrder order);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IStockDirectoryChannel : StockServiceMarketClient.StockService.IStockDirectory, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class StockDirectoryClient : System.ServiceModel.ClientBase<StockServiceMarketClient.StockService.IStockDirectory>, StockServiceMarketClient.StockService.IStockDirectory {
+    public partial class StockDirectoryClient : System.ServiceModel.DuplexClientBase<StockServiceMarketClient.StockService.IStockDirectory>, StockServiceMarketClient.StockService.IStockDirectory {
         
-        public StockDirectoryClient() {
+        public StockDirectoryClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public StockDirectoryClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public StockDirectoryClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public StockDirectoryClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public StockDirectoryClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public StockDirectoryClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public StockDirectoryClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public StockDirectoryClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public StockDirectoryClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
         }
         
         public StockServiceContracts.StockOrder OrderStock(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email) {
@@ -139,20 +140,20 @@ namespace StockServiceMarketClient.StockService {
             return base.Channel.GetClientOrdersAsync(clientEmail);
         }
         
-        public int RegisterOnNewOrder(object callback) {
-            return base.Channel.RegisterOnNewOrder(callback);
+        public int RegisterOnNewOrder() {
+            return base.Channel.RegisterOnNewOrder();
         }
         
-        public System.Threading.Tasks.Task<int> RegisterOnNewOrderAsync(object callback) {
-            return base.Channel.RegisterOnNewOrderAsync(callback);
+        public System.Threading.Tasks.Task<int> RegisterOnNewOrderAsync() {
+            return base.Channel.RegisterOnNewOrderAsync();
         }
         
-        public int RegisterOnOrderStatusChange(int id, object callback) {
-            return base.Channel.RegisterOnOrderStatusChange(id, callback);
+        public int RegisterOnOrderStatusChange(int id) {
+            return base.Channel.RegisterOnOrderStatusChange(id);
         }
         
-        public System.Threading.Tasks.Task<int> RegisterOnOrderStatusChangeAsync(int id, object callback) {
-            return base.Channel.RegisterOnOrderStatusChangeAsync(id, callback);
+        public System.Threading.Tasks.Task<int> RegisterOnOrderStatusChangeAsync(int id) {
+            return base.Channel.RegisterOnOrderStatusChangeAsync(id);
         }
         
         public void UnregisterOnNewOrder(int callbackId) {
