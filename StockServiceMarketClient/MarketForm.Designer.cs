@@ -218,6 +218,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MarketForm";
             this.Text = "Market";
+            this.Load += new System.EventHandler(this.MarketForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MarketForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.stockValInput)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -228,14 +230,14 @@
 
         private System.Windows.Forms.Label pendingLabel;
         private System.Windows.Forms.Label executedLabel;
-        private System.Windows.Forms.ListView pendingList;
+        public System.Windows.Forms.ListView pendingList;
         private System.Windows.Forms.ColumnHeader idPendHeader;
         private System.Windows.Forms.ColumnHeader emailPendHeader;
         private System.Windows.Forms.ColumnHeader typePendHeader;
         private System.Windows.Forms.ColumnHeader quantityPendHeader;
         private System.Windows.Forms.ColumnHeader dateReqPendHeader;
         private System.Windows.Forms.Button executeButton;
-        private System.Windows.Forms.ListView executedList;
+        public System.Windows.Forms.ListView executedList;
         private System.Windows.Forms.ColumnHeader idExecutedHeader;
         private System.Windows.Forms.ColumnHeader emailExecutedHeader;
         private System.Windows.Forms.ColumnHeader typeExecutedHeader;

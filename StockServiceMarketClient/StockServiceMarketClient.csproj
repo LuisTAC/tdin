@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MarketCallback.cs" />
     <Compile Include="MarketForm.cs">
       <SubType>Form</SubType>
     </Compile>
