@@ -10,20 +10,15 @@ using System.Threading;
 namespace StockServiceHost
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-    [ServiceBehavior(ConcurrencyMode =ConcurrencyMode.Reentrant)]
+    [ServiceBehavior(ConcurrencyMode =ConcurrencyMode.Reentrant, InstanceContextMode = InstanceContextMode.Single)]
     public class StockService : IStockDirectory
     {
         private int LastCallbackId = 0;
-        private Dictionary<int, IStockServiceCallback> CallbacksIds;
-        private Dictionary<int, HashSet<IStockServiceCallback>> OnOrderStatusChangeCallbacks;
-        private HashSet<IStockServiceCallback> OnNewOrderCallbacks;
+        private Dictionary<int, IStockServiceCallback> CallbacksIds = new Dictionary<int, IStockServiceCallback>();
+        private Dictionary<int, HashSet<IStockServiceCallback>> OnOrderStatusChangeCallbacks = new Dictionary<int, HashSet<IStockServiceCallback>>();
+        private HashSet<IStockServiceCallback> OnNewOrderCallbacks = new HashSet<IStockServiceCallback>();
 
-        public StockService()
-        {
-            this.CallbacksIds = new Dictionary<int, IStockServiceCallback>();
-            this.OnOrderStatusChangeCallbacks = new Dictionary<int, HashSet<IStockServiceCallback>>();
-            this.OnNewOrderCallbacks = new HashSet<IStockServiceCallback>();
-        }
+        public StockService() { }
 
         public StockServiceContracts.StockOrder OrderStock(string company, int quantity, StockServiceContracts.StockOrder.OrderType type, string email)
         {

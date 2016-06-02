@@ -824,7 +824,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:9000/StockService/</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-5B2GBV7\diogo</Upn>
+          <Upn>LTAC\Luis</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

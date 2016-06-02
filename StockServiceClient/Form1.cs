@@ -1,21 +1,32 @@
 ﻿using StockServiceContracts;
 using System;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static StockServiceContracts.StockOrder;
 
 namespace StockServiceClient
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, StockService.IStockDirectoryCallback
     {
         private StockService.StockDirectoryClient proxy;
 
         public Form1()
         {
             InitializeComponent();
-            this.proxy = new StockService.StockDirectoryClient();
+            this.proxy = new StockService.StockDirectoryClient(new InstanceContext(this));
             this.BuySell.Items.Add(OrderType.Purchase);
             this.BuySell.Items.Add(OrderType.Sale);
+            this.BuySell.Text = "Purchase";
+        }
+
+        public void OnNewOrder(StockOrder order)
+        {
+            throw new NotImplementedException();
+        }
+        public void OnOrderStatusChange(StockOrder order)
+        {
+            throw new NotImplementedException();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -24,7 +35,7 @@ namespace StockServiceClient
             try
             {
                 this.DisableForm();
-                Task task = proxy.OrderStockAsync(this.CompanyName, (int)this.Amount.Value, type, this.Email.Text);
+                Task task = proxy.OrderStockAsync(this.CompanyTextBox.Text, (int)this.Amount.Value, type, this.Email.Text);
                 task.ContinueWith(t =>
                 {
                     if (this.InvokeRequired)
