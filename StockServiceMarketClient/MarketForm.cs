@@ -7,9 +7,11 @@ using System.Windows.Forms;
 
 namespace StockServiceMarketClient
 {
+    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public partial class MarketForm : Form, StockService.IStockDirectoryCallback
     {
-        private int id;
+        private int onNewId;
+        private Dictionary<int, int> onChangedIds = new Dictionary<int, int>(); //orderId, callbackId
 
         private StockService.StockDirectoryClient proxy;
 
@@ -22,12 +24,17 @@ namespace StockServiceMarketClient
         private void MarketForm_Load(object sender, EventArgs e)
         {
             initViews();
-            this.id = proxy.RegisterOnNewOrder();
+            this.onNewId = proxy.RegisterOnNewOrder();
+            foreach (KeyValuePair<int, int> entry in onChangedIds)
+            {
+                proxy.UnregisterOnOrderStatusChange(entry.Key,entry.Value);
+            }
         }
 
         private void MarketForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            proxy.UnregisterOnNewOrder(this.id);
+            proxy.UnregisterOnNewOrder(this.onNewId);
+
             proxy.Close();
         }
 
@@ -44,6 +51,7 @@ namespace StockServiceMarketClient
                 {
                     ListViewItem item = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate });
                     pendingList.Items.Add(item);
+                    this.onChangedIds.Add(order.Id, proxy.RegisterOnOrderStatusChange(order.Id));
                 }
                 else
                 {
@@ -67,28 +75,6 @@ namespace StockServiceMarketClient
                     Task task = proxy.ExecuteOrderAsync(id, stockVal);
                     task.ContinueWith(t =>
                     {
-                        /*
-                        if (this.InvokeRequired)
-                        {
-                            Action onSuccess = () => {
-                                this.pendingList.Items.RemoveAt(ind);
-
-                                int quantity = int.Parse(item.SubItems[3].Text);
-                                ListViewItem newItem = new ListViewItem(new string[] { item.Text, item.SubItems[1].Text, item.SubItems[2].Text, item.SubItems[3].Text, item.SubItems[4].Text, item.SubItems[5].Text, DateTime.UtcNow.ToString(), stockVal.ToString(), (quantity*stockVal).ToString() });
-                                this.executedList.Items.Add(newItem);
-
-                                this.stockValInput.Value = 0;
-                                this.EnableForm();
-                            };
-                            this.Invoke(onSuccess);
-                        }
-                        else
-                        {
-                            this.stockValInput.Value = 0;
-                            this.EnableForm();
-                        }
-                        */
-
                         MessageBox.Show("Order executed!", "Success");
                     });
                 }
@@ -119,12 +105,18 @@ namespace StockServiceMarketClient
         {
             ListViewItem item = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate });
             this.pendingList.Items.Add(item);
+            this.onChangedIds.Add(order.Id, proxy.RegisterOnOrderStatusChange(order.Id));
         }
 
         public void OnOrderStatusChange(StockOrder order)
         {
-            ListViewItem item = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate, order.ExecutionDate, order.StockValue.ToString(), order.GetTotalValue().ToString() });
-            ((MarketForm)this).executedList.Items.Add(item);
+            foreach (ListViewItem item in ((MarketForm)this).pendingList.Items)
+            {
+                if(item.Text.Equals(order.Id.ToString()))
+                    ((MarketForm)this).pendingList.Items.Remove(item);
+            }
+            ListViewItem newItem = new ListViewItem(new string[] { order.Id.ToString(), order.Email, order.Type.ToString(), order.Quantity.ToString(), order.Company, order.RequestDate, order.ExecutionDate, order.StockValue.ToString(), order.GetTotalValue().ToString() });
+            ((MarketForm)this).executedList.Items.Add(newItem);
         }
     }
 }
